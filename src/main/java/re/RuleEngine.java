@@ -14,33 +14,39 @@ public class RuleEngine {
         this.rules = rules;
     }
 
-    public boolean run() {
+    public ExecutionRs run() {
         boolean precon = false;
+        ExecutionRs executionRs = new ExecutionRs();
         for (RuleEngineBuilder.RuleWrapper rootWrapper : rules) {
             RuleEngineBuilder.RuleWrapper r = rootWrapper;
-            precon = r.rule().execute();
+            precon = r.rule().execute().getResult();
             while (r.nextRule() != null) { // Loop through child rules
                 r = r.nextRule();
                 if (CONDITION.equals(r.type())) { // Handle boolean conditions
                     if (RuleOperator.AND.equals(r.operator())) {
-                        precon = precon & r.rule().execute();
+                        precon = precon & r.rule().execute().getResult();
                     } else if (OR.equals(r.operator())) {
-                        precon = precon || r.rule().execute();
+                        precon = precon || r.rule().execute().getResult();
                     } else {
-                        precon = r.rule().execute(); // New set of conditions about to happen
+                        precon = r.rule().execute().getResult(); // New set of conditions about to happen
                     }
                 } else {
                     if (precon) {
-                        r.rule().execute(); // If precondition is true, execute action
+                        RuleRs rs = r.rule().execute(); // If precondition is true, execute action
+                        precon = rs.getResult();
+                        executionRs.addMessage(rs);
                     } else {
-                        if (MANDATORY.equals(rootWrapper.operationType()))
-                            return false; // If this piece of pipeline is mandatory, whole pipeline breaks with it
+                        // If this piece of pipeline is mandatory, whole pipeline breaks with it
+                        if (MANDATORY.equals(rootWrapper.operationType())) {
+                            executionRs.setExecSuccess(false);
+                            return executionRs;
+                        }
                         break; // If preconditions are false, there is no need to move on with rule segment
                     }
                 }
             }
         }
-
-        return precon;
+        executionRs.setExecSuccess(precon);
+        return executionRs;
     }
 }

@@ -33,6 +33,18 @@ public class RuleEngineBuilder {
         lastRuleInChain = ruleWrapper;
         return this;
     }
+    public RuleEngineBuilder unrestricted(Rule a) {
+        optional(new SimpleTruePrecondition());
+        RuleWrapper ruleWrapper = new RuleWrapper(a, ACTION, lastRuleInChain, RuleOperator.ACTION, NON_TERMINAL);
+        if (lastRuleInChain == null) {
+            lastRuleInChain = ruleWrapper;
+        } else {
+            lastRuleInChain.nextRule(ruleWrapper);
+        }
+        lastRuleInChain = ruleWrapper;
+        return this;
+    }
+
 
     public RuleEngineBuilder and(Rule r) {
         RuleWrapper ruleWrapper = new RuleWrapper(r, CONDITION, lastRuleInChain, AND, NON_TERMINAL);
@@ -67,6 +79,11 @@ public class RuleEngineBuilder {
 
     public RuleEngine build() {
         return new RuleEngine(rules);
+    }
+
+    static class SimpleTruePrecondition implements Rule {
+        public RuleRs execute() { return new RuleRs("Default Precondition for execute()", true); }
+        public String getInfo() { return "Default Precondition"; }
     }
 
     static class RuleWrapper {

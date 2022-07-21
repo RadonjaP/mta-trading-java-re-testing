@@ -2,6 +2,8 @@ package re;
 
 public interface Rule {
 
-    boolean execute();
+    RuleRs execute();
+
+    String getInfo();
 
 }
