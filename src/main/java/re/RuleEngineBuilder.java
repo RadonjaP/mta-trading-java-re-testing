@@ -17,7 +17,7 @@ public class RuleEngineBuilder {
     private RuleWrapper lastRuleInChain;
 
     public RuleEngineBuilder when(Rule r) {
-        RuleWrapper ruleWrapper = new RuleWrapper(r, CONDITION, lastRuleInChain, null, MANDATORY);
+        RuleWrapper ruleWrapper = new RuleWrapper(r, CONDITION, null, MANDATORY);
         if (lastRuleInChain == null)
             rules.add(ruleWrapper);
         lastRuleInChain = ruleWrapper;
@@ -25,7 +25,7 @@ public class RuleEngineBuilder {
     }
 
     public RuleEngineBuilder optional(Rule r) {
-        RuleWrapper ruleWrapper = new RuleWrapper(r, CONDITION, lastRuleInChain, null, NON_TERMINAL);
+        RuleWrapper ruleWrapper = new RuleWrapper(r, CONDITION, null, NON_TERMINAL);
         if (lastRuleInChain == null)
             rules.add(ruleWrapper);
         else
@@ -35,7 +35,7 @@ public class RuleEngineBuilder {
     }
     public RuleEngineBuilder unrestricted(Rule a) {
         optional(new SimpleTruePrecondition());
-        RuleWrapper ruleWrapper = new RuleWrapper(a, ACTION, lastRuleInChain, RuleOperator.ACTION, NON_TERMINAL);
+        RuleWrapper ruleWrapper = new RuleWrapper(a, ACTION, RuleOperator.ACTION, NON_TERMINAL);
         if (lastRuleInChain == null) {
             lastRuleInChain = ruleWrapper;
         } else {
@@ -47,21 +47,21 @@ public class RuleEngineBuilder {
 
 
     public RuleEngineBuilder and(Rule r) {
-        RuleWrapper ruleWrapper = new RuleWrapper(r, CONDITION, lastRuleInChain, AND, NON_TERMINAL);
+        RuleWrapper ruleWrapper = new RuleWrapper(r, CONDITION, AND, NON_TERMINAL);
         lastRuleInChain.nextRule(ruleWrapper);
         lastRuleInChain = ruleWrapper;
         return this;
     }
 
     public RuleEngineBuilder or(Rule r) {
-        RuleWrapper ruleWrapper = new RuleWrapper(r, CONDITION, lastRuleInChain, OR, NON_TERMINAL);
+        RuleWrapper ruleWrapper = new RuleWrapper(r, CONDITION, OR, NON_TERMINAL);
         lastRuleInChain.nextRule(ruleWrapper);
         lastRuleInChain = ruleWrapper;
         return this;
     }
 
     public RuleEngineBuilder then(Rule a) {
-        RuleWrapper ruleWrapper = new RuleWrapper(a, ACTION, lastRuleInChain, RuleOperator.ACTION, NON_TERMINAL);
+        RuleWrapper ruleWrapper = new RuleWrapper(a, ACTION, RuleOperator.ACTION, NON_TERMINAL);
         if (lastRuleInChain == null) {
             lastRuleInChain = ruleWrapper;
         } else {
@@ -88,16 +88,13 @@ public class RuleEngineBuilder {
 
     static class RuleWrapper {
 
-        private final RuleWrapper previousRule;
         private RuleWrapper nextRule;
         private final Rule rule;
         private final RuleType type;
         private final RuleOperator operator;
         private final OperationType operationType;
 
-        RuleWrapper(Rule rule, RuleType type, RuleWrapper previousRule,
-                    RuleOperator operator, OperationType operationType) {
-            this.previousRule = previousRule;
+        RuleWrapper(Rule rule, RuleType type, RuleOperator operator, OperationType operationType) {
             this.rule = rule;
             this.type = type;
             this.operator = operator;
