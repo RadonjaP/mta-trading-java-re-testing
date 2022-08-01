@@ -1,4 +1,4 @@
-package re;
+package com.rprelevic.re.model;
 
 public class RuleRs {
 

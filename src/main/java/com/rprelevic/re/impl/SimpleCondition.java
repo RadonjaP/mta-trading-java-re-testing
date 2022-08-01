@@ -1,9 +1,9 @@
-package re.impl;
+package com.rprelevic.re.impl;
 
-import re.Rule;
-import re.RuleRs;
+import com.rprelevic.re.api.IRule;
+import com.rprelevic.re.model.RuleRs;
 
-public class SimpleCondition implements Rule {
+public class SimpleCondition implements IRule {
 
     private final boolean value;
 

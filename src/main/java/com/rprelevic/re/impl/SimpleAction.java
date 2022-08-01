@@ -1,9 +1,9 @@
-package re.impl;
+package com.rprelevic.re.impl;
 
-import re.Rule;
-import re.RuleRs;
+import com.rprelevic.re.api.IRule;
+import com.rprelevic.re.model.RuleRs;
 
-public class SimpleAction implements Rule {
+public class SimpleAction implements IRule {
 
     private String info;
 

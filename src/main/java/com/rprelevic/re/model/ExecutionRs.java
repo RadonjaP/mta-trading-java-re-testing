@@ -1,24 +1,20 @@
-package re;
+package com.rprelevic.re.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static re.OperationType.MANDATORY;
-import static re.RuleOperator.OR;
-import static re.RuleType.CONDITION;
-
 public class ExecutionRs {
 
-    private final List<String> messages = new ArrayList<String>();
+    private final List<String> log = new ArrayList<>();
 
     private boolean execSuccess;
 
     public void addMessage(RuleRs ruleRs) {
-        messages.add(ruleRs.getInfo());
+        log.add(ruleRs.getInfo());
     }
 
-    public List<String> getMessages() {
-        return messages;
+    public List<String> getLog() {
+        return log;
     }
 
     public boolean isExecSuccess() {
