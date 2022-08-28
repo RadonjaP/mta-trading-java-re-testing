@@ -55,6 +55,7 @@ public final class ConditionsAndRules {
     public static final IRule ACTION_OPEN_TRADE = new SimpleAction("Open New Trade");
     public static final IRule ACTION_ADD_PENDING_TRADE = new SimpleAction("Add Pending Trade");
     public static final IRule ACTION_MOVE_TRAILING_STOP = new SimpleAction("Move Trailing Stop");
+    public static final IRule ACTION_MOVE_TO_BREAK_EVEN = new SimpleAction("Move To Break Even");
     public static final IRule ACTION_TERMINATE = new SimpleAction("Simple Terminate Action");
 
 }

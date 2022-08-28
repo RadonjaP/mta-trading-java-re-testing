@@ -31,7 +31,8 @@ public enum RuleId implements IRuleId {
     MOVE_TRAILING_STOP(22),
     TRAILING_STOP_HIT(23),
     BASIC_CLOSE_TRADE_L(24),
-    CFRM_MATCHES_BASELINE_SIGNAL(25);
+    CFRM_MATCHES_BASELINE_SIGNAL(25),
+    MOVE_TO_BREAK_EVEN(26);
 
     private final int id;
 
