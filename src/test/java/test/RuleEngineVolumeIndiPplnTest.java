@@ -17,8 +17,8 @@ class RuleEngineVolumeIndiPplnTest {
     public void testEntrySignal_whenBaselineCrossed_andNoCfrm_thenNoTrade() {
         ExecutionRs executionResult = new RuleEngineBuilder(new TestRuleRegistry())
                 .start(BASELINE_CROSSED)
-                .add(BASELINE_CROSSED, HAS_NO_CFRM_SIGNAL, HAS_NO_CFRM_SIGNAL)
-                .addOnlyTrue(HAS_NO_CFRM_SIGNAL, HAS_2ND_CFRM_SIGNAL)
+                .add(BASELINE_CROSSED, HAS_CFRM_SIGNAL_FALSE, HAS_CFRM_SIGNAL_FALSE)
+                .addOnlyTrue(HAS_CFRM_SIGNAL_FALSE, HAS_2ND_CFRM_SIGNAL)
                 .addOnlyTrue(HAS_2ND_CFRM_SIGNAL, BASELINE_MATCH_TREND)
                 .addOnlyTrue(BASELINE_MATCH_TREND, VOLUME_EXISTS)
                 .addOnlyTrue(VOLUME_EXISTS, BASIC_OPEN_TRADE)
@@ -35,9 +35,9 @@ class RuleEngineVolumeIndiPplnTest {
     @Test
     public void testEntrySignal_whenBaselineNotCrossed_andNoCfrm_thenNoTrade() {
         ExecutionRs executionResult = new RuleEngineBuilder(new TestRuleRegistry())
-                .start(BASELINE_NOT_CROSSED)
-                .add(BASELINE_NOT_CROSSED, HAS_NO_CFRM_SIGNAL, HAS_NO_CFRM_SIGNAL)
-                .addOnlyTrue(HAS_NO_CFRM_SIGNAL, HAS_2ND_CFRM_SIGNAL)
+                .start(BASELINE_CROSSED_FALSE)
+                .add(BASELINE_CROSSED_FALSE, HAS_CFRM_SIGNAL_FALSE, HAS_CFRM_SIGNAL_FALSE)
+                .addOnlyTrue(HAS_CFRM_SIGNAL_FALSE, HAS_2ND_CFRM_SIGNAL)
                 .addOnlyTrue(HAS_2ND_CFRM_SIGNAL, BASELINE_MATCH_TREND)
                 .addOnlyTrue(BASELINE_MATCH_TREND, VOLUME_EXISTS)
                 .addOnlyTrue(VOLUME_EXISTS, BASIC_OPEN_TRADE)
@@ -56,8 +56,8 @@ class RuleEngineVolumeIndiPplnTest {
         ExecutionRs executionResult = new RuleEngineBuilder(new TestRuleRegistry())
                 .start(BASELINE_CROSSED)
                 .add(BASELINE_CROSSED, HAS_CFRM_SIGNAL, HAS_CFRM_SIGNAL)
-                .addOnlyTrue(HAS_CFRM_SIGNAL, HAS_NO_2ND_CFRM_SIGNAL)
-                .addOnlyTrue(HAS_NO_2ND_CFRM_SIGNAL, BASELINE_MATCH_TREND)
+                .addOnlyTrue(HAS_CFRM_SIGNAL, HAS_2ND_CFRM_SIGNAL_FALSE)
+                .addOnlyTrue(HAS_2ND_CFRM_SIGNAL_FALSE, BASELINE_MATCH_TREND)
                 .addOnlyTrue(BASELINE_MATCH_TREND, VOLUME_EXISTS)
                 .addOnlyTrue(VOLUME_EXISTS, BASIC_OPEN_TRADE)
                 .build()
@@ -77,8 +77,8 @@ class RuleEngineVolumeIndiPplnTest {
                 .start(BASELINE_CROSSED)
                 .add(BASELINE_CROSSED, HAS_CFRM_SIGNAL, HAS_CFRM_SIGNAL)
                 .addOnlyTrue(HAS_CFRM_SIGNAL, HAS_2ND_CFRM_SIGNAL)
-                .addOnlyTrue(HAS_2ND_CFRM_SIGNAL, BASELINE_NOT_MATCH_TREND)
-                .addOnlyTrue(BASELINE_NOT_MATCH_TREND, VOLUME_EXISTS)
+                .addOnlyTrue(HAS_2ND_CFRM_SIGNAL, BASELINE_MATCH_TREND_FALSE)
+                .addOnlyTrue(BASELINE_MATCH_TREND_FALSE, VOLUME_EXISTS)
                 .addOnlyTrue(VOLUME_EXISTS, BASIC_OPEN_TRADE)
                 .build()
                 .run();
@@ -99,8 +99,8 @@ class RuleEngineVolumeIndiPplnTest {
                 .add(BASELINE_CROSSED, HAS_CFRM_SIGNAL, HAS_CFRM_SIGNAL)
                 .addOnlyTrue(HAS_CFRM_SIGNAL, HAS_2ND_CFRM_SIGNAL)
                 .addOnlyTrue(HAS_2ND_CFRM_SIGNAL, BASELINE_MATCH_TREND)
-                .addOnlyTrue(BASELINE_MATCH_TREND, VOLUME_NOT_EXISTS)
-                .addOnlyTrue(VOLUME_NOT_EXISTS, BASIC_OPEN_TRADE)
+                .addOnlyTrue(BASELINE_MATCH_TREND, VOLUME_EXISTS_FALSE)
+                .addOnlyTrue(VOLUME_EXISTS_FALSE, BASIC_OPEN_TRADE)
                 .build()
                 .run();
 

@@ -23,6 +23,7 @@ public final class ConditionsAndRules {
     public static final IRule COND_HAS_CFRM_SIGNAL = new SimpleCondition(true, "Signal from Main Indicator?");
     public static final IRule COND_HAS_NO_CFRM_SIGNAL = new SimpleCondition(false, "No Signal from Main Indicator?");
     public static final IRule COND_HAVE_NO_ACTIVE_TRADE_CHALK = new SimpleCondition(false, "Has no Active Trade (chalk)?");
+    public static final IRule COND_HAVE_ACTIVE_TRADE_CHALK = new SimpleCondition(true, "Has Active Trade (chalk)?");
     public static final IRule COND_GOT_EXIT_SIGNAL = new SimpleCondition(true, "Exit signal exists?");
     public static final IRule COND_DID_NOT_GET_EXIT_SIGNAL = new SimpleCondition(false, "Exit signal does not exist?");
     public static final IRule COND_HAS_2ND_CFRM_SIGNAL = new SimpleCondition(true, "Has 2nd confirmation signal");
@@ -41,11 +42,14 @@ public final class ConditionsAndRules {
     public static final IRule COND_SIGNAL_IS_NOT_PULLBACK = new SimpleCondition(false, "Signal is Not Poolback?");
     public static final IRule COND_CFRM_OPPOSITE_SIGNAL = new SimpleCondition(true, "Confirmation Indicator gave opposite signal?");
     public static final IRule COND_CFRM_NOT_OPPOSITE_SIGNAL = new SimpleCondition(false, "Confirmation Indicator did not give opposite signal?");
+    public static final IRule COND_CFRM_MATCHES_BL_SIGNAL = new SimpleCondition(true, "Confirmation Indicator matches baseline signal?");
+    public static final IRule COND_CFRM_NOT_MATCHES_BL_SIGNAL = new SimpleCondition(false, "Confirmation Indicator does not match baseline signal?");
 
     /**
      * Actions
      */
-    public static final IRule ACTION_CLOSE_TRADE_WL = new SimpleAction("Basic Close Trade (win/lose)");
+    public static final IRule ACTION_CLOSE_TRADE_W = new SimpleAction("Basic Close Trade Win");
+    public static final IRule ACTION_CLOSE_TRADE_L = new SimpleAction("Basic Close Trade Lose");
     public static final IRule ACTION_CLOSE_TRADE_CHALK = new SimpleAction("Basic Close Trade (chalk)");
     public static final IRule ACTION_CLOSE_TRADE = new SimpleAction("Close Trade");
     public static final IRule ACTION_OPEN_TRADE = new SimpleAction("Open New Trade");
